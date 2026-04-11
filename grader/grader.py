@@ -19,7 +19,7 @@ def grade(submission_path, labels_path):
         sys.exit(1)
 
     # Calculate accuracy
-    correct  = (submission["prediction"].values == labels["label"].values).sum()
+    correct = (submission["prediction"].values == labels["target"].values).sum()
     total    = len(labels)
     accuracy = correct / total * 100
 
