@@ -1,0 +1,34 @@
+name: Grade Submission
+
+on:
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  grade:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout participant code
+        uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: pip install pandas scikit-learn
+
+      - name: Write secret labels to file
+        run: echo "${{ secrets.TEST_LABELS }}" > grader/test_labels.csv
+
+      - name: Check submission file exists
+        run: |
+          if [ ! -f submission/submission.csv ]; then
+            echo "❌ submission/submission.csv not found!"
+            exit 1
+          fi
+
+      - name: Run grader
+        run: python grader/grader.py
