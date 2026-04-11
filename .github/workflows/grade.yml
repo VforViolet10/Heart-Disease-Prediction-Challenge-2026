@@ -52,7 +52,7 @@ jobs:
           import json, os
 
           new_result_path = "leaderboard_data/result.json"
-          leaderboard_path = "leaderboard/leaderboard.json"
+          leaderboard_path = "docs/leaderboard.json"
 
           if not os.path.exists(new_result_path):
               print("No result file found, skipping leaderboard update")
