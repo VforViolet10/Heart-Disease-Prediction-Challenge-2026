@@ -25,10 +25,13 @@ jobs:
 
       - name: Check submission file exists
         run: |
-          if [ ! -f submission/submission.csv ]; then
-            echo "❌ submission/submission.csv not found!"
+          count=$(find submission/ -name "*submission.csv" | wc -l)
+          if [ "$count" -eq 0 ]; then
+            echo "❌ No submission file found in submission/ folder!"
+            echo "   Name your file like: group1_submission.csv, team5_submission.csv"
             exit 1
           fi
+          echo "✅ Found $count submission file(s)"
 
       - name: Run grader
         run: python grader/grader.py
